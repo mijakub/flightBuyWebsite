@@ -5,6 +5,7 @@
 }
 body{
     font-family: 'Trebuchet MS';
+    user-select: none;
 }
 header{
     background-color: rgb(74, 168, 168);
@@ -24,11 +25,11 @@ header{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-variant-emoji: text;
 }
-a{
+header a{
     text-decoration: none;
     color: white;
 }
-a:hover{
+header a:hover{
     color: black;
 }
 nav{
@@ -73,4 +74,75 @@ select, input{
 }
 #back:hover{
     opacity: 1;
+}
+.flight{
+    background-color: white;
+    width: 600px;
+    height: 200px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(182, 182, 186, 1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(182, 182, 186, 1);
+    box-shadow: 0px 0px 20px 0px rgba(182, 182, 186, 1);
+    margin: 35px;
+    padding: 10px;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+    text-align: center;
+}
+.flex h4{
+    font-size: 30px;
+}
+.center{
+    text-align: center;
+}
+.center2{
+    text-align: center;
+    line-height: 150%;
+}
+h6{
+    font-size: 50px;
+}
+.flight img{
+    margin-bottom: 20px;
+    height: 30px;
+}
+.time{
+    color: darkcyan;
+}
+.price{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 32px;
+    margin-right: 10px;
+    text-align: right;
+}
+.price h3{
+    font-size: 25px;
+}
+.flight:hover{
+    -webkit-box-shadow: 0px 0px 20px 0px darkgray;
+    -moz-box-shadow: 0px 0px 20px 0px darkgray;
+    box-shadow: 0px 0px 20px 0px darkgray;
+}
+.summarize h3{
+    margin: 0;
+}
+.summarize div{
+    font-size: 12px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.price a{
+    text-decoration: none;
+    color: black;
+}
+.price a:hover{
+    color: rgb(47, 110, 110);
 }

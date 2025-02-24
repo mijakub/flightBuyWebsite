@@ -48,5 +48,32 @@
             </div>
         </form>
     </nav>
+    <main>
+        <div class="flight">
+            <img src="emirates.png" alt="emirates logo">
+            <div class="flex">
+                <div class="center">
+                    <h4>KTW</h4>
+                    <h4 class="time">4:20</h4>
+                </div>
+                <div class="center2">
+                    <h5>5godzin 40minut</h5>
+                    <h6>&#10141;</h6>
+                </div>
+                <div class="center">
+                    <h4>DXB</h4>
+                    <h4 class="time">14:00</h4>
+                </div>
+            </div>
+            <div class="price">
+                <a href="">
+                    <div class="summarize">
+                        <h3>1500zł</h3>
+                        <div>za osobę</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
