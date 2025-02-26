@@ -1,5 +1,9 @@
 <?php
-    $conn = mysqli_connect("localhost","root","","airport") or die("Błąd połączenia z bazą: ". mysqli_connect_error()); 
+    $conn = mysqli_connect("localhost","root","","airport") or die("Błąd połączenia z bazą: ". mysqli_connect_error());
+    session_start();
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -72,7 +76,7 @@
                 $result3 = mysqli_query($conn, $query3);
                 if(mysqli_num_rows($result3) > 0){
                     foreach($result3 as $row){
-                        echo "<div class='flight'><img src='".$row['airline'].".png' alt='".$row['airline']."'><div class='flex'><div class='center'><h4>".$row['origin']."</h4><h4 class='time'>".$row['departure_time']."</h4></div><div class='center2'><h5>".$row['flight_duration']."</h5><h6>&#10141;</h6></div><div class='center'><h4>".$row['destination']."</h4><h4 class='time'>".$row['arrival_time']."</h4></div></div><div class='price'><a href=''><div class='summarize'><h3>".$row['price']."zł</h3><div>za osobę</div></div></a></div></div>";
+                        echo "<div class='flight'><img src='".$row['airline'].".png' alt='".$row['airline']."'><div class='flex'><div class='center'><h4>".$row['origin']."</h4><h4 class='time'>".$row['departure_time']."</h4></div><div class='center2'><h5>".$row['flight_duration']."</h5><h6>&#10141;</h6></div><div class='center'><h4>".$row['destination']."</h4><h4 class='time'>".$row['arrival_time']."</h4></div></div><div class='price'><a href='buy.php?ID=".$row['id']."&people=$people'><div class='summarize'><h3>".$row['price']."zł</h3><div>za osobę</div></div></a></div></div>";
                     }
                 }
                 else{
