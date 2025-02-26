@@ -1,3 +1,6 @@
+<?php
+    $conn = mysqli_connect("localhost","root","","airport") or die("Błąd połączenia z bazą: ". mysqli_connect_error()); 
+?>
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -18,26 +21,31 @@
             <div class="field">
                 <label id="from">Skąd:&nbsp;</label>
                 <select name="from" id="from">
-                    <option value="KTW">KTW</option>
-                    <option value="WAW">WAW</option>
-                    <option value="DXB">DXB</option>
+                    <?php
+                        $query1 = "SELECT DISTINCT origin FROM Flights";
+                        $result1 = mysqli_query($conn, $query1);
+                        foreach($result1 as $row){
+                            echo "<option value='".$row["origin"]."'>".$row["origin"]."</option>";
+                        }
+                    ?>
                 </select>
             </div>
             <div class="field">
                 <label id="to">Dokąd:&nbsp;</label>
                 <select name="to" id="to">
-                    <option value="KTW">KTW</option>
-                    <option value="WAW">WAW</option>
-                    <option value="DXB">DXB</option>
+                    <?php
+                        $query2 = "SELECT DISTINCT destination FROM Flights";
+                        $result2 = mysqli_query($conn, $query2);
+                        foreach($result2 as $row){
+                            echo "<option value='".$row["destination"]."'>".$row["destination"]."</option>";
+                        }
+                        echo "<option value='anywhere'>Cały świat!</option>";
+                    ?>
                 </select>
             </div>
             <div class="field">
-                <label id="since">Od:&nbsp;</label>
-                <input type="text" name="since" id="since" pattern="\d{4}-\d{2}-\d{2}" placeholder="rrrr-mm-dd" required>
-            </div>
-            <div class="field">
-                <label id="until">Do:&nbsp;</label>
-                <input type="text" name="until" id="until" pattern="\d{4}-\d{2}-\d{2}" placeholder="rrrr-mm-dd" required>
+                <label id="since">Wylot:&nbsp;</label>
+                <input type="text" name="since" id="since" pattern="\d{4}-\d{2}" placeholder="rrrr-mm" required>
             </div>
             <div class="field">
                 <label id="people">Ilość pasażerów:&nbsp;</label>
@@ -49,31 +57,35 @@
         </form>
     </nav>
     <main>
-        <div class="flight">
-            <img src="emirates.png" alt="emirates logo">
-            <div class="flex">
-                <div class="center">
-                    <h4>KTW</h4>
-                    <h4 class="time">4:20</h4>
-                </div>
-                <div class="center2">
-                    <h5>5godzin 40minut</h5>
-                    <h6>&#10141;</h6>
-                </div>
-                <div class="center">
-                    <h4>DXB</h4>
-                    <h4 class="time">14:00</h4>
-                </div>
-            </div>
-            <div class="price">
-                <a href="">
-                    <div class="summarize">
-                        <h3>1500zł</h3>
-                        <div>za osobę</div>
-                    </div>
-                </a>
-            </div>
-        </div>
+        <?php
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                $from = $_POST["from"];
+                $to = $_POST["to"];
+                $start_date = $_POST["since"];
+                $people = $_POST["people"];
+                if($to == "anywhere"){
+                    $query3 = "SELECT id, origin, destination, airline, CONCAT(FLOOR(TIME_TO_SEC(duration) / 3600), ' godzin ', FLOOR((TIME_TO_SEC(duration) % 3600) / 60), ' minut') AS flight_duration, price, DATE_FORMAT(departure, '%H:%i') AS departure_time, DATE_FORMAT(arrival, '%H:%i') AS arrival_time FROM Flights WHERE DATE_FORMAT(start_date, '%Y-%m') LIKE '$start_date' AND tickets_available >= $people AND origin like '$from'";
+                }
+                else{
+                    $query3 = "SELECT id, origin, destination, airline, CONCAT(FLOOR(TIME_TO_SEC(duration) / 3600), ' godzin ', FLOOR((TIME_TO_SEC(duration) % 3600) / 60), ' minut') AS flight_duration, price, DATE_FORMAT(departure, '%H:%i') AS departure_time, DATE_FORMAT(arrival, '%H:%i') AS arrival_time FROM Flights WHERE DATE_FORMAT(start_date, '%Y-%m') LIKE '$start_date' AND tickets_available >= $people AND origin like '$from' AND destination LIKE '$to'";
+                }
+                $result3 = mysqli_query($conn, $query3);
+                if(mysqli_num_rows($result3) > 0){
+                    foreach($result3 as $row){
+                        echo "<div class='flight'><img src='".$row['airline'].".png' alt='".$row['airline']."'><div class='flex'><div class='center'><h4>".$row['origin']."</h4><h4 class='time'>".$row['departure_time']."</h4></div><div class='center2'><h5>".$row['flight_duration']."</h5><h6>&#10141;</h6></div><div class='center'><h4>".$row['destination']."</h4><h4 class='time'>".$row['arrival_time']."</h4></div></div><div class='price'><a href=''><div class='summarize'><h3>".$row['price']."zł</h3><div>za osobę</div></div></a></div></div>";
+                    }
+                }
+                else{
+                    echo "<h2>Nie znaleziono lotów spełniających podane wymagania...</h2>";
+                }
+            }
+            else{
+                echo "<h2>Wybierz i zarezerwuj lot!</h2>";
+            }
+        ?>
     </main>
 </body>
 </html>
+<?php
+    mysqli_close($conn);
+?>
