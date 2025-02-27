@@ -64,8 +64,7 @@
             $result = mysqli_query($conn, $query);
             foreach($result as $row){
                 $sum = $people * $row["price"];
-                echo "<div class='flight2'><img src='".$row['airline'].".png' alt='".$row['airline']."'><h3>Zarezerwuj lot!</h3><div class='block'><h4>".$row["origin"]." &#10141; ".$row["destination"]."</h4><h4>".$row['start_date']."</h4><h5>Cena za pasażera: ".$row['price']."zł</h5><h5>Cena za wszystkich pasażerów: $sum"."zł</h5><a href='cart.php?ID=".$row['id']."&people=$people'><button id='buy' name='buy'>Dokonaj rezerwacji!</button></a></div></div>";
-                //Nie działa przyciskiem dodanie do koszyka, bo formularz źle działa
+                echo "<div class='flight2'><img src='".$row['airline'].".png' alt='".$row['airline']."'><h3>Zarezerwuj lot!</h3><div class='block'><h4>".$row["origin"]." &#10141; ".$row["destination"]."</h4><h4>".$row['start_date']."</h4><h5>Cena za pasażera: ".$row['price']."zł</h5><h5>Cena za wszystkich pasażerów: $sum"."zł</h5><a href='cart.php?ID=".$row['id']."&people=$people&buy=true'><button class='but' name='buy'>Dokonaj rezerwacji!</button></a></div></div>";
             }
        ?>
     </main>

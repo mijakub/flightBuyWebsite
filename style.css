@@ -164,7 +164,7 @@ h2{
 .flight2 img{
     height: 35px;
 }
-#buy{
+.but{
     background-color: rgb(74, 168, 168);
     border: 2px solid black;
     border-radius: 7px;
@@ -173,7 +173,7 @@ h2{
     padding: 20px;
     width: 100%;
 }
-#buy:hover{
+.but:hover{
     background-color: rgb(44, 95, 95);
     cursor: pointer;
 }
@@ -183,9 +183,39 @@ h2{
     justify-content: space-around;
     height: calc(100% - 75px);
 }
+.block2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 45px);
+}
+#tickets{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    font-size: 90%;
+}
 .flight2 h5{
     color: rgb(74, 168, 168);
 }
 .flight2 h4{
     color: rgb(44, 95, 95);
+}
+.but1{
+    background-color: rgb(74, 168, 168);
+    border: 2px solid black;
+    border-radius: 7px;
+    color: white;
+    font-weight: bold;
+    padding: 20px;
+    width: calc(50% - 5px);
+}
+.but1:hover{
+    background-color: rgb(44, 95, 95);
+    cursor: pointer;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
 }
