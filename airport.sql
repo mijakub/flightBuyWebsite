@@ -1,7 +1,5 @@
 CREATE DATABASE Airport;
-
 USE Airport;
-
 CREATE TABLE Flights (
     id INT PRIMARY KEY AUTO_INCREMENT,
     origin VARCHAR(100) NOT NULL,
@@ -14,7 +12,21 @@ CREATE TABLE Flights (
     departure TIME NOT NULL,
     arrival TIME NOT NULL
 );
-
+CREATE TABLE Orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_price DECIMAL(10,2) NOT NULL CHECK (total_price >= 0)
+);
+CREATE TABLE Order_Items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    flight_id INT NOT NULL,
+    tickets_count INT NOT NULL CHECK (tickets_count > 0),
+    price_per_ticket DECIMAL(10,2) NOT NULL CHECK (price_per_ticket >= 0),
+    total_price DECIMAL(10,2) NOT NULL CHECK (total_price >= 0),
+    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (flight_id) REFERENCES Flights(id) ON DELETE CASCADE
+);
 INSERT INTO Flights (origin, destination, start_date, tickets_available, price, duration, airline, departure, arrival) VALUES
 ('KTW', 'WAW', '2025-03-10', 50, 199.99, '01:00:00', 'LOT Polish Airlines', '08:00:00', '09:00:00'),
 ('WAW', 'JFK', '2025-03-12', 200, 1999.99, '09:30:00', 'LOT Polish Airlines', '13:00:00', '22:30:00'),
