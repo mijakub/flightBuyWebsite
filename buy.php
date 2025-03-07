@@ -56,7 +56,7 @@
             </div>
         </form>
     </nav>
-    <main>
+    <main class="main">
        <?php
             $id = $_REQUEST["ID"];
             $people = $_REQUEST["people"];
