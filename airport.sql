@@ -32,8 +32,8 @@ CREATE TABLE Order_Items (
     tickets_count INT NOT NULL CHECK (tickets_count > 0),
     price_per_ticket DECIMAL(10,2) NOT NULL CHECK (price_per_ticket >= 0),
     total_price DECIMAL(10,2) NOT NULL CHECK (total_price >= 0),
-    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (flight_id) REFERENCES Flights(id) ON DELETE CASCADE
+    FOREIGN KEY (order_id) REFERENCES Orders(id),
+    FOREIGN KEY (flight_id) REFERENCES Flights(id)
 );
 INSERT INTO Flights (origin, destination, start_date, tickets_available, price, duration, airline, departure, arrival) VALUES
 ('KTW', 'WAW', '2025-03-10', 50, 199.99, '01:00:00', 'LOT Polish Airlines', '08:00:00', '09:00:00'),

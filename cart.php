@@ -16,12 +16,9 @@
     <?php
         include_once("header.php");
     ?>
-    <main>
-        <form action="cart.php?buy=false" method="POST">
+    <main class="main">
+        <form action="order.php" method="POST">
             <?php
-                if(isset($_POST["clear"])){
-                    $_SESSION["cart"] = [];
-                }
                 if($_REQUEST["buy"] == "true"){
                     $_SESSION["cart"][$_REQUEST["ID"]] = $_REQUEST["people"];
                 }
@@ -39,7 +36,7 @@
                     echo "</div><div class='buttons'><button class='but1' name='clear' type='submit'>Wyczyść koszyk</button><button class='but1' name='order' type='submit'>Kup</button></div></div></div>";
                 }
                 else{
-                    echo "<h4></h4>Koszyk jest pusty</div>";
+                    echo "<h4>Koszyk jest pusty</h4></div>";
                 }
             ?>
         </form>

@@ -37,7 +37,19 @@
                         }
                     }
                     else{
-                        echo '<div class="align"><h3>Zalogowano: '.$_COOKIE["login"].'!</h3><button type="submit" name="logout" id="logout">Wyloguj się</button></div>';
+                        $login = $_COOKIE["login"];
+                        echo "<div class='align'><h3>Zalogowano: $login!</h3><div class='orders'>";
+                        $sql = "SELECT * FROM Orders JOIN Users ON Orders.user_id = Users.id WHERE Users.username LIKE '$login'";
+                        $result = mysqli_query($conn, $sql);
+                        if(mysqli_num_rows($result) > 0){
+                            foreach($result as $row){
+                                echo "<h5>Zamówienie nr ".$row["id"].": ".$row["order_date"]." - ".$row["total_price"]."zł</h5>";
+                            }
+                        }
+                        else{
+                            echo "<h5>Brak zamówień!</h5>";
+                        }
+                        echo '</div><button type="submit" name="logout" id="logout">Wyloguj się</button></div>';
                         if(isset($_POST["logout"])){
                             foreach ($_COOKIE as $key => $value) {
                                 setcookie($key, "", time() - 3600, "/");
